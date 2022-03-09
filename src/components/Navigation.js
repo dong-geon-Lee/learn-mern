@@ -1,65 +1,35 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+
 import MainHeader from "./MainHeader";
-import styled from "styled-components";
 
-const NavWrapper = styled.ul`
-  list-style: none;
-  display: flex;
-
-  & li {
-    margin-left: 1rem;
-
-    &:last-child a {
-      color: red;
-      background-color: yellow;
-      padding: 0.6rem 0.8rem;
-    }
-  }
-
-  & a {
-    text-decoration: none;
-    color: #fff;
-  }
-
-  @media (max-width: 800px) {
-    display: none;
-  }
-`;
+import BackDrop from "./BackDrop";
+import Drawer from "./Drawer";
+import NavLinks from "./NavLinks";
 
 const Navigation = () => {
-  // const [openNavigation, setOpenNavigation] = useState(false);
+  const [openNavigation, setOpenNavigation] = useState(false);
 
-  // const openNavHandler = () => {
-  //   setOpenNavigation(true);
-  // };
+  const openNavHandler = () => {
+    setOpenNavigation(true);
+  };
 
-  // const closeNavHandler = () => {
-  //   setOpenNavigation(false);
-  // };
+  const closeNavHandler = () => {
+    setOpenNavigation(false);
+  };
 
   return (
     <MainHeader>
+      {openNavigation && <BackDrop onClick={closeNavHandler}></BackDrop>}
+      {/* {openNavigation &&} */}
+      <Drawer onClick={openNavHandler}>
+        <nav>
+          <NavLinks></NavLinks>
+        </nav>
+      </Drawer>
       <div></div>
-
       <h1>YourPlaces</h1>
-      <NavWrapper>
-        <li>
-          <NavLink to="/">ALL USERS</NavLink>
-        </li>
 
-        <li>
-          <NavLink to="/u1/places">My PLACES</NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/places/new">ADD PLACE</NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/auth">AUTHENTICATE</NavLink>
-        </li>
-      </NavWrapper>
+      <NavLinks></NavLinks>
     </MainHeader>
   );
 };
